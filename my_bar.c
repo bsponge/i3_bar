@@ -26,6 +26,7 @@ int main() {
   printf("[]");
 
   FILE *battery_file = fopen("/sys/class/power_supply/BAT0/capacity", "r");
+  int percent = 0;
 
   while(1) {
     const int buffer_size = 512;
@@ -41,9 +42,7 @@ int main() {
     sprintf(time, "%02d:%02d:%02d", tm.tm_hour, tm.tm_min, tm.tm_sec);
 
     char battery_str[6];
-    memset(battery_str, '\0', 6);
     if (battery_file != NULL) {
-      int percent = 0;
       fscanf(battery_file, "%d", &percent);
       sprintf(battery_str, "%d%%", percent);
     }
